@@ -22,7 +22,7 @@ function App() {
           <h4>Clipboard Demo</h4>
           <div ref={textRef}>{currentTime}</div>
           <button type="button" onClick={onClick}>Copy the Text</button>
-          {showCopiedMsg && <div className="alert" aria-live="polite">Text Copied</div>}
+          {showCopiedMsg && <div className="alert" aria-live="polite">Copied Successfully</div>}
         </header>
       </div>
   );
