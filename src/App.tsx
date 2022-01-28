@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useRef, useState} from 'react';
 import './App.css';
 
 function App() {
+  const textRef = useRef<HTMLDivElement>(null);
+  const [showCopiedMsg, setShowCopiedMsg] = useState(false);
+  const onClick = () => {
+    const text = textRef.current?.innerText ?? '';
+    navigator.clipboard.writeText(text).then(() => {
+      console.log("Item is copied.")
+      setShowCopiedMsg(true)
+      setTimeout(() => {
+        setShowCopiedMsg(false)
+      }, 5000)
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <header className="App-header">
+          <h4>Clipboard Demo</h4>
+          <div ref={textRef}>{new Date().toLocaleString()}</div>
+          <button type="button" onClick={onClick}>Copy the Text</button>
+          {showCopiedMsg && <div className="alert" aria-live="polite">Text Copied</div>}
+        </header>
+      </div>
   );
 }
 
